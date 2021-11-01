@@ -1,46 +1,119 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Coupon Auto Loader</title>
-        <!--
-            #TODO: #13 Create og property tags
-        -->
-        <link rel="stylesheet" type="text/css" href="css/main.css">
-        <script src="js/main.js"></script>
-    </head>
 
-    <body>
-        <div class="limiter">
-            <div class="content-container">
-                <div class="wrap-content">
-                    <div id="content">
-                        <!-- Have all code below replaceable -->
-                        <form id="couponLogin" class="form validate-form">
-                            <span class="logo">
-                                <!-- TODO: #14 Create/Find a Logo -->
-                            </span>
-                            <span class="title">
-                                Coupon Auto Clipper
-                            </span>
-                            <span id="info" style="display: none;">
-                                <!-- This can be used for errors and classes can have different covers-->
-                            </span>
-                            <span class="wrap-input validate-input">
-                                <input autocomplete="off" id="ppcBox" class="input" type="number" name="username"> 
-                            </span>
-                            <!-- TODO: #15 Make Button's do something in Javascript
-                                TODO: #16 Add Click Effect to Buttons
-                            -->
-                            <span class="wrap-button">
-                                <button id="login">Login</button>
-                            </span>
-                            <span class="wrap-button">
-                                <button id="loadall">Quick Reload</button>
-                            </span>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+<head>
+	<title>Coupon Auto Loader
+	</title>
+	<meta property="og:title" content="Coupon Auto Clipper" />
+	<meta property="og:description" 
+  content="Load all of your Digital Coupons without the need for an App!" />
+    <meta property="og:image" content="https://www.poconorecord.com/storyimage/PR/20191030/NEWS/191039971/AR/0/AR-191039971.jpg" />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--
+	<base href="https://spmnj.dev/template/">
+	-->
+	<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="vendor/JsBarcode/JsBarcode.all.min.js"></script>
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/main.js"></script>
+	<script>document.getElementsByTagName("html")[0].className += " js";</script>
+  	<link rel="stylesheet" href="assets/css/style.css">
+	<!--===============================================================================================-->
+   
+</head>
+
+<body>
+	<div class="limiter">
+		<div class="content-container" style="background-image: url('https://www.poconorecord.com/storyimage/PR/20191030/NEWS/191039971/AR/0/AR-191039971.jpg');">
+			<div class="wrap-content">
+				<div id="content">
+					<div id="content">
+						<form id="searchForm" class="form validate-form" >
+							<div class="logo">
+								<img src="//shoprite.com/~/media/66f9f291ab3949d6b306812fd1958493.ashx" style="max-width: 100%;
+								height: auto;" alt="">
+							</div>
+		
+							<span class="title  p-t-27">
+								Coupon Auto Clipper
+							</span>
+							<div id="info" class="" style="display: none">
+							
+							</div>
+							<div class="wrap-input validate-input" data-validate="Enter PPC/Phone Number">
+
+								<input id="searchbox" pattern="[0-9]*" class="input" type="number" name="username" placeholder="Enter PPC" autocomplete="off" >
+							</div>
+		
+							<div class="container-search-form-btn">
+								<button id="load" class="search-form-btn">
+									Login
+								</button>
+								<div id="load" class="btn-loading" style="display: none">
+										<img src="images/Rolling-red.svg" alt="" height="40px" width="40px">
+								</div>
+							</div>
+							<br>
+							<div class="container-search-form-btn">
+								<div id="reload" class="search-form-btn">
+									Quick Reload
+								</div>
+								<div id="reload" class="btn-loading" style="display: none">
+										<img src="images/Rolling-red.svg" alt="" height="40px" width="40px">
+								</div>
+							</div>
+							<div class="m-t-25">
+								Made by Coupon Fiends
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--===============================================================================================-->
+	<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+	<!--===============================================================================================-->
+	<script src="vendor/countdowntime/countdowntime.js"></script>
+	<!--===============================================================================================-->
+
+    <script>$("input[type=number]").on("keydown", function(e) {
+        var invalidChars = ["-", "+", "e", "."]; 
+        if (invalidChars.includes(e.key)) {
+            e.preventDefault();
+        }
+        });</script>
+
+</body>
+
 </html>
