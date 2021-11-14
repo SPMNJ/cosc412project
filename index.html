@@ -63,7 +63,7 @@
 							</div>
 							<div class="wrap-input validate-input" data-validate="Enter PPC/Phone Number">
 
-								<input id="searchbox" pattern="[0-9]*" class="input" type="number" name="username" placeholder="Enter PPC" autocomplete="off" >
+								<input id="searchbox" pattern="[0-9]*" class="input" type="number" name="username" placeholder="Enter PPC" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "11" >
 							</div>
 		
 							<div class="container-search-form-btn">
@@ -83,7 +83,7 @@
 										<img src="images/Rolling-red.svg" alt="" height="40px" width="40px">
 								</div>
 							</div>
-							<div class="m-t-25">
+							<div class="input1">
 								Made by Coupon Fiends
 							</div>
 						</form>
