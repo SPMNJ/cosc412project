@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,9 +5,9 @@
 	<title>Coupon Auto Loader
 	</title>
 	<meta property="og:title" content="Coupon Auto Clipper" />
-	<meta property="og:description" 
-  content="Load all of your Digital Coupons without the need for an App!" />
-    <meta property="og:image" content="https://www.poconorecord.com/storyimage/PR/20191030/NEWS/191039971/AR/0/AR-191039971.jpg" />
+	<meta property="og:description" content="Load all of your Digital Coupons without the need for an App!" />
+	<meta property="og:image"
+		content="https://www.poconorecord.com/storyimage/PR/20191030/NEWS/191039971/AR/0/AR-191039971.jpg" />
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--
@@ -39,56 +38,58 @@
 	<script src="js/main.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script>document.getElementsByTagName("html")[0].className += " js";</script>
-  	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="assets/css/style.css">
 	<!--===============================================================================================-->
-   
+
 </head>
 
 <body>
 	<div class="limiter">
-		<div class="content-container" style="background-image: url('https://www.poconorecord.com/storyimage/PR/20191030/NEWS/191039971/AR/0/AR-191039971.jpg');">
+		<div class="content-container"
+			style="background-image: url('https://www.poconorecord.com/storyimage/PR/20191030/NEWS/191039971/AR/0/AR-191039971.jpg');">
 			<div class="wrap-content">
 				<div id="content">
-					<div id="content">
-						<form id="searchForm" class="form validate-form" >
-							<div class="logo">
-								<img src="//shoprite.com/~/media/66f9f291ab3949d6b306812fd1958493.ashx" style="max-width: 100%;
+					<form id="searchForm" class="form validate-form">
+						<div class="logo">
+							<img src="//shoprite.com/~/media/66f9f291ab3949d6b306812fd1958493.ashx" style="max-width: 100%;
 								height: auto;" alt="">
-							</div>
-		
-							<span class="title  p-t-27">
-								Coupon Auto Clipper
-							</span>
-							<div id="info" class="" style="display: none">
-							
-							</div>
-							<div class="wrap-input validate-input" data-validate="Enter PPC/Phone Number">
+						</div>
 
-								<input id="searchbox" pattern="[0-9]*" class="input" type="number" name="username" placeholder="Enter PPC" autocomplete="off" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength = "11" >
+						<span class="title  p-t-27">
+							Coupon Auto Clipper
+						</span>
+						<div id="info" class="" style="display: none">
+
+						</div>
+						<div class="wrap-input validate-input" data-validate="Enter PPC/Phone Number">
+
+							<input id="searchbox" pattern="[0-9]*" class="input" type="number" name="username"
+								placeholder="Enter PPC" autocomplete="off"
+								oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+								maxlength="11">
+						</div>
+
+						<div class="container-search-form-btn">
+							<button id="load" class="search-form-btn">
+								Login
+							</button>
+							<div id="load" class="btn-loading" style="display: none">
+								<img src="images/Rolling-red.svg" alt="" height="40px" width="40px">
 							</div>
-		
-							<div class="container-search-form-btn">
-								<button id="load" class="search-form-btn">
-									Login
-								</button>
-								<div id="load" class="btn-loading" style="display: none">
-										<img src="images/Rolling-red.svg" alt="" height="40px" width="40px">
-								</div>
+						</div>
+						<br>
+						<div class="container-search-form-btn">
+							<div id="reload" class="search-form-btn">
+								Quick Reload
 							</div>
-							<br>
-							<div class="container-search-form-btn">
-								<div id="reload" class="search-form-btn">
-									Quick Reload
-								</div>
-								<div id="reload" class="btn-loading" style="display: none">
-										<img src="images/Rolling-red.svg" alt="" height="40px" width="40px">
-								</div>
+							<div id="reload" class="btn-loading" style="display: none">
+								<img src="images/Rolling-red.svg" alt="" height="40px" width="40px">
 							</div>
-							<div class="input1">
-								Made by Coupon Fiends
-							</div>
-						</form>
-					</div>
+						</div>
+						<div class="input1">
+							Made by Coupon Fiends
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -108,12 +109,12 @@
 	<script src="vendor/countdowntime/countdowntime.js"></script>
 	<!--===============================================================================================-->
 
-    <script>$("input[type=number]").on("keydown", function(e) {
-        var invalidChars = ["-", "+", "e", "."]; 
-        if (invalidChars.includes(e.key)) {
-            e.preventDefault();
-        }
-        });</script>
+	<script>$("input[type=number]").on("keydown", function (e) {
+			var invalidChars = ["-", "+", "e", "."];
+			if (invalidChars.includes(e.key)) {
+				e.preventDefault();
+			}
+		});</script>
 
 </body>
 
