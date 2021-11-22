@@ -1,1 +1,10 @@
-<svg id="SvgjsSvg1001" width="288" height="288" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs"><defs id="SvgjsDefs1002"></defs><g id="SvgjsG1008" transform="matrix(1,0,0,1,0,0)"><svg xmlns="http://www.w3.org/2000/svg" style="background:0 0" width="288" height="288" class="lds-rolling" preserveAspectRatio="xMidYMid" viewBox="0 0 100 100"><circle cx="50" cy="50" r="35" fill="none" stroke="#00c3ff" stroke-dasharray="164.934 56.978" stroke-width="10" transform="rotate(65.911 50 50)" class="colorStrokered svgStroke"><animateTransform attributeName="transform" begin="0s" calcMode="linear" dur="1s" keyTimes="0;1" repeatCount="indefinite" type="rotate" values="0 50 50;360 50 50"></animateTransform></circle></svg></g></svg>
+<svg id="SvgjsSvg1001" width="288" height="288" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs">
+    <defs id="SvgjsDefs1002"></defs>
+    <g id="SvgjsG1008" transform="matrix(1,0,0,1,0,0)">
+        <svg xmlns="http://www.w3.org/2000/svg" style="background:0 0" width="288" height="288" class="lds-rolling" preserveAspectRatio="xMidYMid" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="35" fill="none" stroke="#00c3ff" stroke-dasharray="164.934 56.978" stroke-width="10" transform="rotate(65.911 50 50)" class="colorStrokered svgStroke">
+                <animateTransform attributeName="transform" begin="0s" calcMode="linear" dur="1s" keyTimes="0;1" repeatCount="indefinite" type="rotate" values="0 50 50;360 50 50"></animateTransform>
+            </circle>
+        </svg>
+    </g>
+</svg>

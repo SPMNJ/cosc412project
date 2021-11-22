@@ -39,6 +39,17 @@ function doGet(e) {
       responce = respond(400, "" + error);
     }
   }
+  else if (request.type == "loadcontent") {
+    if (request.page == "login") {
+      responce = respond(200, HtmlService.createHtmlOutputFromFile("login").getContent());
+    }
+    else if (request.page == "profile") {
+      responce = respond(200, HtmlService.createHtmlOutputFromFile("profile").getContent());
+    }
+    else {
+      responce = respond(400, "Invalid Page");
+    }
+  }
   
   else { //No Requests
     responce = respond(400, "Bad Request: No type included");
