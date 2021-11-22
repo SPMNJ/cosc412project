@@ -109,7 +109,7 @@ function eraseCookie(name) {
 }
 function loadlogin(){
 	$("#content").slideUp(1000, function() {
-    	$("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-1s-200px.svg" alt="" height="100px" width="100px"></div>');
+    	$("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
 		$('.content-loading').fadeIn();
 		$.ajax({
 				url: window.url + "?type=loadcontent&page=login" 
@@ -118,7 +118,7 @@ function loadlogin(){
 }
 function loadprofile(){
 	$("#content").slideUp(1000, function() {
-    	$("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-1s-200px.svg" alt="" height="100px" width="100px"></div>');
+    	$("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
 		$('.content-loading').fadeIn();
 		$.ajax({
 				url: window.url + "?type=loadcontent&page=profile" 
