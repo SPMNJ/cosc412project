@@ -1,4 +1,22 @@
 var url = "https://script.google.com/macros/s/AKfycbzQADj0ibUG9cDKJsj6D4e7-Q-VUjBaRr9tsI9z5F70aDcS_7ll9VWWU4fO6YLNeaaU/exec";
+const html5QrCode = new Html5Qrcode("reader", {
+  experimentalFeatures: {
+    useBarCodeDetectorIfSupported: true
+},
+  formatToSupport: [
+    Html5QrcodeSupportedFormats.QR_CODE,
+    Html5QrcodeSupportedFormats.UPC_A,
+    Html5QrcodeSupportedFormats.UPC_E,
+    Html5QrcodeSupportedFormats.UPC_EAN_EXTENSION,
+  ]
+});
+const qrCodeSuccessCallback = (decodedText, decodedResult) => {
+  stopcamera();
+  alert(decodedText);
+  $('#info').html("decodedResult");
+};
+var timeoutid;
+const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 (function ($) {
   "use strict";
   $.ajaxSetup({
@@ -17,7 +35,7 @@ var url = "https://script.google.com/macros/s/AKfycbzQADj0ibUG9cDKJsj6D4e7-Q-VUj
     event.preventDefault();
     $('#info').hide();
     $('#info').html("");
-    setTimeout(function () {
+    timeoutid = setTimeout(function () {
       $("#load.btn-loading").show();
       $("#load.search-form-btn").hide();
     }, 1000);
@@ -30,7 +48,7 @@ var url = "https://script.google.com/macros/s/AKfycbzQADj0ibUG9cDKJsj6D4e7-Q-VUj
   $(document).on('click', '#reload', function (event) {
     $('#info').hide();
     $('#info').html("");
-    setTimeout(function () {
+    timeoutid = setTimeout(function () {
       $("#reload.btn-loading").show();
       $("#reload.search-form-btn").hide();
     }, 1000);
@@ -39,6 +57,16 @@ var url = "https://script.google.com/macros/s/AKfycbzQADj0ibUG9cDKJsj6D4e7-Q-VUj
       url: url + "?type=coupons&id=" + input,
     });
 
+    return false;
+  });
+
+  $(document).on('click', '#scan', function (event) {
+    startcamera();
+    return false;
+  });
+
+  $(document).on('click', '#popup-close', function (event) {
+    stopcamera();
     return false;
   });
 
@@ -57,6 +85,10 @@ function login(response) {
   $("#info").show();
   $("#load.btn-loading").hide();
   $("#load.search-form-btn").show();
+  if (timeoutid) {
+    clearTimeout(timeoutid);
+    timeoutid = null;
+  }
 }
 
 function coupons(response) {
@@ -69,17 +101,21 @@ function coupons(response) {
   $("#info").show();
   $("#reload.btn-loading").hide();
   $("#reload.search-form-btn").show();
+  if (timeoutid) {
+    clearTimeout(timeoutid);
+    timeoutid = null;
+  }
 }
 
-function loadcontent(responce){
+function loadcontent(responce) {
   console.log(responce);
-	if (responce.status == 200){
-		$("#content").html(responce.message);
-		setTimeout(function() {
-		$(".content-loading").fadeOut().remove();
-		$("#content").slideDown(1000);
-							  },2000);
-	}
+  if (responce.status == 200) {
+    $("#content").html(responce.message);
+    setTimeout(function () {
+      $(".content-loading").fadeOut().remove();
+      $("#content").slideDown(1000);
+    }, 2000);
+  }
   else {
     alert(responce.message);
   }
@@ -107,22 +143,36 @@ function getCookie(name) {
 function eraseCookie(name) {
   document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
-function loadlogin(){
-	$("#content").slideUp(1000, function() {
-    	$("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
-		$('.content-loading').fadeIn();
-		$.ajax({
-				url: window.url + "?type=loadcontent&page=login" 
-		});
-	});
+function loadlogin() {
+  $("#content").slideUp(1000, function () {
+    $("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
+    $('.content-loading').fadeIn();
+    $.ajax({
+      url: window.url + "?type=loadcontent&page=login"
+    });
+  });
 }
-function loadprofile(){
-	$("#content").slideUp(1000, function() {
-    	$("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
-		$('.content-loading').fadeIn();
-		$.ajax({
-				url: window.url + "?type=loadcontent&page=profile" 
-		});
-	});
+function loadprofile() {
+  $("#content").slideUp(1000, function () {
+    $("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
+    $('.content-loading').fadeIn();
+    $.ajax({
+      url: window.url + "?type=loadcontent&page=profile"
+    });
+  });
 }
 
+function startcamera() {
+  html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
+  $("#popup").fadeIn();
+  $("#popup").children().fadeIn();
+}
+function stopcamera() {
+  html5QrCode.stop().then((ignore) => {
+    // QR Code scanning is stopped.
+  }).catch((err) => {
+    // Stop failed, handle it.
+  });
+  $("#popup").children().fadeOut();
+  $("#popup").fadeOut();
+}
