@@ -14,8 +14,8 @@
 	<base href="https://spmnj.dev/template/">
 	-->
 	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon16x16.ico" sizes="16x16"/>
-	<link rel="icon" type="image/png" href="images/icons/favicon32x32.ico" sizes="32x32"/>
+	<link rel="icon" type="image/png" href="images/icons/favicon16x16.ico" sizes="16x16" />
+	<link rel="icon" type="image/png" href="images/icons/favicon32x32.ico" sizes="32x32" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
@@ -35,8 +35,6 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<script src="js/main.js"></script>
-	
 	<script>document.getElementsByTagName("html")[0].className += " js";</script>
 	<link rel="stylesheet" href="assets/css/style.css">
 	<!--===============================================================================================-->
@@ -76,6 +74,11 @@
 							<div id="load" class="btn-loading" style="display: none">
 								<img src="images/Rolling-blue.svg" alt="" height="40px" width="40px">
 							</div>
+							<div style="margin-right: 10px;"> </div>
+							<div id="scan" class="search-form-btn" style="font-size: xx-large; min-width: 0px;">
+								<i class="fas fa-camera"></i>
+							</div>
+							
 						</div>
 						<br>
 						<div class="container-search-form-btn">
@@ -86,10 +89,24 @@
 								<img src="images/Rolling-blue.svg" alt="" height="40px" width="40px">
 							</div>
 						</div>
+						<br>
 						<div class="input1">
 							Made by Coupon Fiends
 						</div>
 					</form>
+				</div>
+				<div id="popup" style="display: none">
+					<div id="popup-background" style="display: none">
+						<div class="popup-title">
+							SCANNING
+						</div>
+						<div id="reader" style="width: 340px;"></div>
+						<div class="popup-options">
+							<div class="container-popup-btn">
+								<div id="popup-close" class="popup-btn">CLOSE</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -115,6 +132,9 @@
 				e.preventDefault();
 			}
 		});</script>
+
+	<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+	<script src="js/main.js"></script>
 
 </body>
 

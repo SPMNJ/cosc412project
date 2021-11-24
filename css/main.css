@@ -804,13 +804,13 @@ cursor: pointer;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
-#confirm-passes{
+#popup-background{
 	border-radius: 10px;
 	background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 340px;
 	max-width: 700px;
 	z-index: 2;
 }
@@ -829,11 +829,11 @@ cursor: pointer;
 	list-style: disc outside;
 		
 }
-.confirm-options {
+.popup-options {
 	text-align: center;
 	font-size: 20px
 }
-.container-confirm-btn {
+.container-popup-btn {
   width: 100%;
   display: -webkit-box;
   display: -webkit-flex;
@@ -844,7 +844,7 @@ cursor: pointer;
   justify-content: center;
 }
 
-.confirm-btn {
+.popup-btn {
 cursor: pointer;
   font-family: Poppins-Medium;
   font-size: 20px;
@@ -873,7 +873,7 @@ cursor: pointer;
   transition: all 0.4s;
 }
 
-.confirm-btn::before {
+.popup-btn::before {
   content: "";
   display: block;
   position: absolute;
