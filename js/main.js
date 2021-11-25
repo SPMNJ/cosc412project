@@ -1,5 +1,6 @@
 var url = "https://script.google.com/macros/s/AKfycbzQADj0ibUG9cDKJsj6D4e7-Q-VUjBaRr9tsI9z5F70aDcS_7ll9VWWU4fO6YLNeaaU/exec";
 var timeoutid;
+var scanreason = "";
 (function ($) {
   "use strict";
   $.ajaxSetup({
@@ -53,6 +54,7 @@ var timeoutid;
     });
     $("#popup").fadeIn();
     $("#popup").children().fadeIn();
+    scanreason = $("#scan").data().scanreason
     return false;
   });
 
@@ -168,8 +170,7 @@ var timeoutid;
 
   Quagga.onDetected(function (result) {
     stopcamera();
-    alert(decodedText);
-    $('#info').html("decodedResult");
+    scanreturn(result.codeResult.code);
   });
 
   Quagga.onProcessed(function (result) {
@@ -310,4 +311,17 @@ function stopcamera() {
   Quagga.stop();
   $("#popup").children().fadeOut();
   $("#popup").fadeOut();
+}
+
+function scanreturn(text) {
+  if (scanreason == "login") {
+    $("#searchbox").val(text);
+    $("#info").hide();
+    $("#load.btn-loading").show();
+    $("#load.search-form-btn").hide();
+    $.ajax({
+      url: window.url + "?type=login&code=" + text,
+    });
+  }
+  scanreason = "";
 }
