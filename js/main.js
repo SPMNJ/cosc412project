@@ -326,7 +326,7 @@ function scanreturn(text) {
       $("#load.btn-loading").show();
       $("#load.search-form-btn").hide();
       $.ajax({
-        url: window.url + "?type=login&code=" + text,
+        url: window.url + "?type=login&id=" + text,
       });
     }
   }
