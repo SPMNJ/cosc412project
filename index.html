@@ -78,7 +78,7 @@
 							<div id="scan" class="search-form-btn" style="font-size: xx-large; min-width: 0px;">
 								<i class="fas fa-camera"></i>
 							</div>
-							
+
 						</div>
 						<br>
 						<div class="container-search-form-btn">
@@ -96,11 +96,13 @@
 					</form>
 				</div>
 				<div id="popup" style="display: none">
-					<div id="popup-background" style="display: none">
+					<div id="popup-background" style="display: none; text-align: center;">
 						<div class="popup-title">
 							SCANNING
 						</div>
-						<div id="reader" style="width: 340px;"></div>
+						<select id="cameras-selection">
+						</select>
+						<div id="reader"></div>
 						<div class="popup-options">
 							<div class="container-popup-btn">
 								<div id="popup-close" class="popup-btn">CLOSE</div>
@@ -133,7 +135,9 @@
 			}
 		});</script>
 
-	<script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+	<!-- <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/@ericblade/quagga2/dist/quagga.js"></script>
+	<script src="js/camera.js"></script>
 	<script src="js/main.js"></script>
 
 </body>

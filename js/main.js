@@ -1,22 +1,5 @@
 var url = "https://script.google.com/macros/s/AKfycbzQADj0ibUG9cDKJsj6D4e7-Q-VUjBaRr9tsI9z5F70aDcS_7ll9VWWU4fO6YLNeaaU/exec";
-const html5QrCode = new Html5Qrcode("reader", {
-  experimentalFeatures: {
-    useBarCodeDetectorIfSupported: true
-},
-  formatToSupport: [
-    Html5QrcodeSupportedFormats.QR_CODE,
-    Html5QrcodeSupportedFormats.UPC_A,
-    Html5QrcodeSupportedFormats.UPC_E,
-    Html5QrcodeSupportedFormats.UPC_EAN_EXTENSION,
-  ]
-});
-const qrCodeSuccessCallback = (decodedText, decodedResult) => {
-  stopcamera();
-  alert(decodedText);
-  $('#info').html("decodedResult");
-};
 var timeoutid;
-const config = { fps: 10, qrbox: { width: 250, height: 250 } };
 (function ($) {
   "use strict";
   $.ajaxSetup({
@@ -61,13 +44,174 @@ const config = { fps: 10, qrbox: { width: 250, height: 250 } };
   });
 
   $(document).on('click', '#scan', function (event) {
-    startcamera();
+    Quagga.CameraAccess.request(null, {}).then(function () {
+      Quagga.CameraAccess.release().then(function () {
+        Quagga.CameraAccess.enumerateVideoDevices().then(function (devices) {
+          start(devices);
+        });
+      });
+    });
+    $("#popup").fadeIn();
+    $("#popup").children().fadeIn();
     return false;
   });
 
   $(document).on('click', '#popup-close', function (event) {
     stopcamera();
     return false;
+  });
+
+  function tryToDetermineRightCamera(devices) {
+    var backDevices = devices.filter(function (device) {
+      return device.label.toUpperCase().includes("BACK");
+    });
+
+    if (backDevices.length > 0) {
+      return backDevices[0].deviceId;
+    } else {
+      return devices[0].deviceId;
+    }
+  }
+
+  function start(devices) {
+    var deviceId = tryToDetermineRightCamera(devices);
+
+    Quagga.init(
+      {
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: "#reader",
+          constraints: {
+            width: 1200,
+            height: 1200,
+            deviceId: deviceId,
+          },
+        },
+        decoder: {
+          readers: ["upc_reader"],
+        },
+      },
+      function (err) {
+        if (err) {
+          console.log(err);
+          alert(err);
+          return;
+        }
+        $("#cameras-selection").empty();
+        Quagga.start();
+        possibleCameraOptions(deviceId);
+
+      }
+    );
+  }
+
+  function possibleCameraOptions(deviceId) {
+    setTimeout(function () {
+      Quagga.CameraAccess.enumerateVideoDevices().then(function (devices2) {
+        devices2.forEach((device2) => {
+          function pruneText(text) {
+            return text.length > 30 ? text.substr(0, 30) : text;
+          }
+          var selected = deviceId == device2.deviceId;
+
+          if (selected) {
+            $("#cameras-selection").append(
+              `<option value="${device2.deviceId
+              }" selected="selected">${pruneText(device2.label)}</option>`
+            );
+          } else {
+            $("#cameras-selection").append(
+              `<option value="${device2.deviceId}">${pruneText(
+                device2.label
+              )}</option>`
+            );
+          }
+        });
+      });
+    }, 50);
+  }
+  $(document).on('change', '#cameras-selection', function () {
+    var optionSelected = $(this).find("option:selected");
+    var deviceId = optionSelected.val();
+
+    Quagga.stop();
+
+    setTimeout(function () {
+      Quagga.init(
+        {
+          inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: "#container",
+            constraints: {
+              width: 1200,
+              height: 1200,
+              deviceId: deviceId,
+            },
+          },
+          decoder: {
+            readers: ["upc_reader"],
+          },
+        },
+        function (err) {
+          if (err) {
+            console.log(err);
+            alert(err);
+            return;
+          }
+          Quagga.start();
+        }
+      );
+    }, 250);
+  });
+
+  Quagga.onDetected(function (result) {
+    stopcamera();
+    alert(decodedText);
+    $('#info').html("decodedResult");
+  });
+
+  Quagga.onProcessed(function (result) {
+    var drawingCtx = Quagga.canvas.ctx.overlay,
+      drawingCanvas = Quagga.canvas.dom.overlay;
+
+    if (result) {
+      if (result.boxes) {
+        drawingCtx.clearRect(
+          0,
+          0,
+          parseInt(drawingCanvas.getAttribute("width")),
+          parseInt(drawingCanvas.getAttribute("height"))
+        );
+        result.boxes
+          .filter(function (box) {
+            return box !== result.box;
+          })
+          .forEach(function (box) {
+            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+              color: "green",
+              lineWidth: 2,
+            });
+          });
+      }
+
+      if (result.box) {
+        Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
+          color: "#00F",
+          lineWidth: 2,
+        });
+      }
+
+      if (result.codeResult && result.codeResult.code) {
+        Quagga.ImageDebug.drawPath(
+          result.line,
+          { x: "x", y: "y" },
+          drawingCtx,
+          { color: "red", lineWidth: 3 }
+        );
+      }
+    }
   });
 
 })(jQuery);
@@ -162,17 +306,8 @@ function loadprofile() {
   });
 }
 
-function startcamera() {
-  html5QrCode.start({ facingMode: "environment" }, config, qrCodeSuccessCallback);
-  $("#popup").fadeIn();
-  $("#popup").children().fadeIn();
-}
 function stopcamera() {
-  html5QrCode.stop().then((ignore) => {
-    // QR Code scanning is stopped.
-  }).catch((err) => {
-    // Stop failed, handle it.
-  });
+  Quagga.stop();
   $("#popup").children().fadeOut();
   $("#popup").fadeOut();
 }
