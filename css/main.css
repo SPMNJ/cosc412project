@@ -912,5 +912,19 @@ cursor: pointer;
 #search-results {
   margin-top: 20px;
 }
+#reader {
+  display: grid;
+  zoom: 25%;
+}
+
+video {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+canvas {
+  grid-row: 1;
+  grid-column: 1;
+}
 
 /*TODO: #17 Create CSS for Website
