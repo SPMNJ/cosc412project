@@ -1,4 +1,4 @@
-var url = "https://script.google.com/macros/s/AKfycbwz6lkaNwlHpRWN-7TNKaf7phxJd5Zmle9czhs-kg7vWNR_2dq3HTSCrbn-cN-8_132/exec";
+var url = "https://script.google.com/macros/s/AKfycbwD1eETJ_or-J6EeiSoQ0uyyNziz6iJzOco34PHD0RZQ_ejXfG6e01vcH1yGuBGMUWE/exec";
 var timeoutid;
 var scanreason = "";
 (function ($) {
@@ -63,7 +63,7 @@ var scanreason = "";
     return false;
   });
 
-  $(document).on('click', ".pass-form-btn",function() {
+  $(document).on('click', ".pass-form-btn", function () {
     $('#info').hide();
     $("#info").html("");
     if ($(this).parents(".block-content").hasClass("loaded")) {
@@ -74,7 +74,7 @@ var scanreason = "";
     $.ajax({
       url: url + "?type=clip&coupon_id=" + coupon_id + "&clip_token=" + clip_token + "&coupon_auth=" + getCookie("session_id")
     });
-  });	
+  });
 
   function tryToDetermineRightCamera(devices) {
     var backDevices = devices.filter(function (device) {
@@ -263,13 +263,16 @@ function coupons(response) {
     clearTimeout(timeoutid);
     timeoutid = null;
   }
+  if (!!document.getElementById("passes")) {
+    loadpasses();
+  }
 }
 
 function clip(responce) {
   console.log(responce);
   if (responce.status == 200) {
     var object = JSON.parse(responce.message);
-    if(object.result){
+    if (object.result) {
       alert("Successfully clipped");
       $("[data-coupon_id='" + object.coupon_ids[0] + "']").find(".pass-form-btn").addClass("loaded");
       $("[data-coupon_id='" + object.coupon_ids[0] + "']").find(".pass-text").text("LOADED")
@@ -278,6 +281,18 @@ function clip(responce) {
   else {
     alert(responce.message);
   }
+}
+
+function lookup(response) {
+  if (response.status == 200) {
+    $('html, body').animate({
+      scrollTop: $("#"+response.message).offset().top
+  }, 2000);
+  }
+  else {
+    $("#info").append("<div class='warning'>" + response.message + "</div>");
+  }
+  $("#info").show();
 }
 
 function loadcontent(responce) {
@@ -317,7 +332,7 @@ function eraseCookie(name) {
   document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 function loadlogin() {
-  $(".wrap-content").css("width", "500px").css("padding","");
+  $(".wrap-content").css("width", "500px").css("padding", "");
   $("#content").slideUp(1000, function () {
     $("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
     $('.content-loading').fadeIn();
@@ -357,6 +372,13 @@ function scanreturn(text) {
       $("#load.search-form-btn").hide();
       $.ajax({
         url: window.url + "?type=login&id=" + text,
+      });
+    }
+    else if (scanreason == "coupon") {
+      $("#info").append("<div class='success'>Looking for Coupons with UPC: " + text + "</div>");
+      $("#info").show();
+      $.ajax({
+        url: window.url + "?type=lookup&upc=" + text + "&coupon_auth=" + getCookie("session_id"),
       });
     }
   }
