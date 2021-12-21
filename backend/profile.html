@@ -1,1 +1,42 @@
-<span class='title  p-t-27'>Profile Page</span>
+<form id="get-passes" class="form">
+  <span class="title p-t-5 p-b-5">
+						Welcome
+					</span>
+  <span class="subtitle">
+						<a onClick="loadlogin()">Not You? Click Here</a>
+					</span>
+  <div id="info" class="" style="display: none">
+
+  </div>
+  <div id="passes">
+    <? 
+      coupons.forEach(coupon => {
+    ?>
+    <div class="block-content" data-clip_token=<?= coupon.clip_token ?> data-coupon_id=<?= coupon.coupon_id ?>>
+      <img src=<?= coupon.image_url?>>
+      <div class="block-title"><?= coupon.brand_name ?></div>
+      <div class="block-desc"><?= coupon.short_description ?></div>
+      <div class="line"></div>
+      <div class="block-pass">
+        <div class="pass-login-form-btn">
+          <? if(!coupon.clipped) { ?>
+          <div class="pass-form-btn">
+            <div class="pass-text">
+              LOAD COUPON
+            </div>
+          </div>
+          <? } else { ?>
+          <div class="pass-form-btn loaded">
+            <div class="pass-text">
+              LOADED
+            </div>
+          </div>
+          <? }; ?>
+        </div>
+      </div>
+    </div>
+    <? 
+      });
+    ?>
+  </div>
+</form>

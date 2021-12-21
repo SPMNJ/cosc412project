@@ -1,41 +1,64 @@
 <form id="searchForm" class="form validate-form">
-    <div class="logo">
-        <img src="//shoprite.com/~/media/66f9f291ab3949d6b306812fd1958493.ashx" style="max-width: 100%;
-            height: auto;" alt="">
-    </div>
+						<div class="logo">
+							<img src="//shoprite.com/~/media/66f9f291ab3949d6b306812fd1958493.ashx" style="max-width: 100%;
+								height: auto;" alt="">
+						</div>
 
-    <span class="title  p-t-27">
-        Coupon Auto Clipper
-    </span>
-    <div id="info" class="" style="display: none">
+						<span class="title  p-t-27">
+							Coupon Auto Clipper
+						</span>
+						<div id="info" class="" style="display: none">
 
-    </div>
-    <div class="wrap-input validate-input" data-validate="Enter PPC/Phone Number">
+						</div>
+						<div class="wrap-input validate-input" data-validate="Enter PPC/Phone Number">
 
-        <input id="searchbox" pattern="[0-9]*" class="input" type="number" name="username"
-            placeholder="Enter PPC" autocomplete="off"
-            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-            maxlength="11">
-    </div>
+							<input id="searchbox" pattern="[0-9]*" class="input" type="number" name="username"
+								placeholder="Enter PPC" autocomplete="off"
+								oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+								maxlength="11">
+						</div>
+						<script type="text/javascript">
+							(function () {
+								function getCookie(name) {
+									var nameEQ = name + "=";
+									var ca = document.cookie.split(';');
+									for (const i of ca) {
+										var c = i;
+										while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+										if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+									}
+									return null;
+								}
+								if (getCookie("ppc_id") != null) {
+									$("#searchbox").val(getCookie("ppc_id"));
+								}
+							})();
+						</script>
+						<div class="container-search-form-btn">
+							<button id="load" class="search-form-btn">
+								Login
+							</button>
+							<div id="load" class="btn-loading" style="display: none">
+								<img src="images/Rolling-blue.svg" alt="" height="40px" width="40px">
+							</div>
+							<div style="margin-right: 10px;"> </div>
+							<div id="scan" class="search-form-btn" style="font-size: xx-large; min-width: 0px;"
+								data-scanreason="login">
+								<i class="fas fa-camera"></i>
+							</div>
 
-    <div class="container-search-form-btn">
-        <button id="load" class="search-form-btn">
-            Login
-        </button>
-        <div id="load" class="btn-loading" style="display: none">
-            <img src="images/Rolling-blue.svg" alt="" height="40px" width="40px">
-        </div>
-    </div>
-    <br>
-    <div class="container-search-form-btn">
-        <div id="reload" class="search-form-btn">
-            Quick Reload
-        </div>
-        <div id="reload" class="btn-loading" style="display: none">
-            <img src="images/Rolling-blue.svg" alt="" height="40px" width="40px">
-        </div>
-    </div>
-    <div class="input1">
-        Made by Coupon Fiends
-    </div>
-</form>
+						</div>
+						<br>
+						<div class="container-search-form-btn">
+							<div id="reload" class="search-form-btn">
+								Quick Reload
+							</div>
+							<div id="reload" class="btn-loading" style="display: none">
+								<img src="images/Rolling-blue.svg" alt="" height="40px" width="40px">
+							</div>
+						</div>
+						<br>
+						<div class="input1">
+							Made by Coupon Fiends
+						</div>
+					</form>

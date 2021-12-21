@@ -259,8 +259,8 @@ background: linear-gradient(180deg, #0189b3, #00c3ff);
 .block-content {
 	display: inline-block;
 	border-radius: 10px;
-	height: 100px;
-	width: 100px;
+	height: auto;
+	width: 200px;
 	background: white;
 	margin: 10px;
 	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -272,8 +272,8 @@ background: linear-gradient(180deg, #0189b3, #00c3ff);
 .block-title {
 	display: table-cell;
 	vertical-align: middle;
-	height: 49px;
-	width: 100px;
+	height: auto;
+	width: 200px;
 	font-size: 20px;
 	color: #bd1313;
 	}
@@ -281,13 +281,16 @@ background: linear-gradient(180deg, #0189b3, #00c3ff);
 	display: table-cell;
 	vertical-align: middle;
 	height: 50px;
-	width:100px;
+	width: 200px;
 }
 .line{
-width: 100px;
+width: 200px;
 height: 1px;
 border-bottom: 1px solid black;
 position: absolute;
+}
+.loaded::before{
+  background: grey !important
 }
 
 /*------------------------------------------------------------------

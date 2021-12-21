@@ -1,4 +1,4 @@
-var url = "https://script.google.com/macros/s/AKfycbzQADj0ibUG9cDKJsj6D4e7-Q-VUjBaRr9tsI9z5F70aDcS_7ll9VWWU4fO6YLNeaaU/exec";
+var url = "https://script.google.com/macros/s/AKfycbwz6lkaNwlHpRWN-7TNKaf7phxJd5Zmle9czhs-kg7vWNR_2dq3HTSCrbn-cN-8_132/exec";
 var timeoutid;
 var scanreason = "";
 (function ($) {
@@ -62,6 +62,19 @@ var scanreason = "";
     stopcamera();
     return false;
   });
+
+  $(document).on('click', ".pass-form-btn",function() {
+    $('#info').hide();
+    $("#info").html("");
+    if ($(this).parents(".block-content").hasClass("loaded")) {
+      return false;
+    }
+    var coupon_id = $(this).parents(".block-content").data().coupon_id;
+    var clip_token = $(this).parents(".block-content").data().clip_token;
+    $.ajax({
+      url: url + "?type=clip&coupon_id=" + coupon_id + "&clip_token=" + clip_token + "&coupon_auth=" + getCookie("session_id")
+    });
+  });	
 
   function tryToDetermineRightCamera(devices) {
     var backDevices = devices.filter(function (device) {
@@ -252,6 +265,21 @@ function coupons(response) {
   }
 }
 
+function clip(responce) {
+  console.log(responce);
+  if (responce.status == 200) {
+    var object = JSON.parse(responce.message);
+    if(object.result){
+      alert("Successfully clipped");
+      $("[data-coupon_id='" + object.coupon_ids[0] + "']").find(".pass-form-btn").addClass("loaded");
+      $("[data-coupon_id='" + object.coupon_ids[0] + "']").find(".pass-text").text("LOADED")
+    }
+  }
+  else {
+    alert(responce.message);
+  }
+}
+
 function loadcontent(responce) {
   console.log(responce);
   if (responce.status == 200) {
@@ -289,6 +317,7 @@ function eraseCookie(name) {
   document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
 function loadlogin() {
+  $(".wrap-content").css("width", "500px").css("padding","");
   $("#content").slideUp(1000, function () {
     $("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
     $('.content-loading').fadeIn();
@@ -298,11 +327,12 @@ function loadlogin() {
   });
 }
 function loadprofile() {
+  $(".wrap-content").css("width", "800px").css("padding", "inherit");
   $("#content").slideUp(1000, function () {
     $("#content").parent().append('<div class="content-loading" style="display: none"><img src="images/Rolling-blue.svg" alt="" height="100px" width="100px"></div>');
     $('.content-loading').fadeIn();
     $.ajax({
-      url: window.url + "?type=loadcontent&page=profile"
+      url: window.url + "?type=loadcontent&page=profile&coupon_auth=" + getCookie("session_id")
     });
   });
 }
