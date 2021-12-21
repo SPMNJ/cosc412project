@@ -1,4 +1,4 @@
-var url = "https://script.google.com/macros/s/AKfycbwD1eETJ_or-J6EeiSoQ0uyyNziz6iJzOco34PHD0RZQ_ejXfG6e01vcH1yGuBGMUWE/exec";
+var url = "https://script.google.com/macros/s/AKfycbzg313kpqfi2IkJNPytm-wdj7rROPau7LVApU_wex5fnMGLTFxvmVtSW3r3Ao1isJtG/exec";
 var timeoutid;
 var scanreason = "";
 (function ($) {
@@ -37,6 +37,9 @@ var scanreason = "";
       $("#reload.search-form-btn").hide();
     }, 1000);
     var input = $("#searchbox").val();
+    if(input == null){
+      input = getCookie("ppc_id");
+    }
     $.ajax({
       url: url + "?type=coupons&id=" + input,
     });
@@ -264,7 +267,7 @@ function coupons(response) {
     timeoutid = null;
   }
   if (!!document.getElementById("passes")) {
-    loadpasses();
+    loadprofile();
   }
 }
 
@@ -359,12 +362,15 @@ function stopcamera() {
 }
 
 function scanreturn(text) {
+  $("#info").html("");
   if (!isValidBarcode(text)) {
     $("#info").append("<div class='warning'>Invalid barcode</div>");
+    $("#info").show();
   }
   else {
     text = text.slice(0, -1);
     $("#info").append("<div class='success'>Barcode Scanned</div>");
+    $("#info").show();
     if (scanreason == "login") {
       $("#searchbox").val(text);
       $("#info").hide();
@@ -374,7 +380,7 @@ function scanreturn(text) {
         url: window.url + "?type=login&id=" + text,
       });
     }
-    else if (scanreason == "coupon") {
+    else if (scanreason == "lookup") {
       $("#info").append("<div class='success'>Looking for Coupons with UPC: " + text + "</div>");
       $("#info").show();
       $.ajax({
