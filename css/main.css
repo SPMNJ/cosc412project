@@ -269,6 +269,10 @@ background: linear-gradient(180deg, #0189b3, #00c3ff);
     -o-transition: all 300ms ease-in-out; 
     transition: all 300ms ease-in-out; 
 }
+.block-content img {
+  max-height: 150px;
+  max-width: 150px;
+}
 .block-title {
 	display: table-cell;
 	vertical-align: middle;
